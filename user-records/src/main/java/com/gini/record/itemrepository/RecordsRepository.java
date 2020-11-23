@@ -9,6 +9,6 @@ import java.util.UUID;
 @Repository
 public interface RecordsRepository extends JpaRepository<RecordDAO, UUID> {
 
-     public RecordDAO findByUserId(String userId);
+     public RecordDAO findByUserId(String userId); // This one should return a list
 
 }

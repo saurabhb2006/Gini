@@ -32,7 +32,9 @@ public class ServiceMockitoTest {
         Mockito.when(recordsRepository.findByUserId("saurabh")).thenReturn(
                  new RecordDAO("saurabh","pdf","Biology report"));
         String type = itemService.findByUserId("saurabh").getType();
-        assertEquals(type.equals("pdf"), true);
+        assertEquals(type.equals("pdf"), true); // Mixing order expected and actual
+                                                        // Should also be assertEquals("pdf", type)
+                                                        // Why are you not checking all fields but only type ?
     }
 
     @Test
@@ -49,7 +51,7 @@ public class ServiceMockitoTest {
         String uuid = new String("31abe8fa-3de4-4884-b0f3-21c0fc006084");
         record.setId(UUID.fromString(uuid));
         Mockito.when(recordsRepository.save(record)).thenReturn(record);
-        assertNotNull(record.getId());
+        assertNotNull(record.getId()); // This test is actually not testing anything. You mock the method but don't call it.
     }
 
 }

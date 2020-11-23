@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.gini.records</groupId>
-	<artifactId>shop-grocery</artifactId>
+	<artifactId>shop-grocery</artifactId> //were does this come from ?
 	<version>v1.0.0</version>
 	<name>user-records</name>
 	<description>Gini project</description>

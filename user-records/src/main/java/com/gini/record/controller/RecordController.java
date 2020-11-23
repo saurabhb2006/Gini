@@ -16,18 +16,19 @@ import java.util.*;
  * Controller Class for REST Api
  */
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1") //Why not having "records" in the general path? Also, you are mixing Records with Items in your controller.
 public class RecordController {
 
-    final Set<String> setOfTypes = new HashSet<>(Arrays.asList("pdf", "jpg", "png"));
+    final Set<String> setOfTypes = new HashSet<>(Arrays.asList("pdf", "jpg", "png")); //You could use an Enum instead of a list. It allows to have a strong check in the RecordDAO
 
     @Autowired(required = true)
     private RecordsDaoService recordsDaoService;
 
-    @GetMapping(value = "/records", params="id")
-    public Optional<RecordDAO> findById(@RequestParam UUID id) {
+    @GetMapping(value = "/records", params="id") //Path param is wrong. It should be /records/{id}
+    public Optional<RecordDAO> findById(@RequestParam UUID id) { //Method name is not great. Confusing with Repository
         return recordsDaoService.findById(id);
     }
+    //You are using findById in the Controller, the service and the Repository. This is very confusing. FindById, save, insert, etc... Are better suited for the repository. You can user "CreateRecord" for instance for the controller.
 
     @GetMapping(value = "/records" , params="userId")
     public RecordDAO findByUserId(@RequestParam String userId) {
@@ -35,15 +36,15 @@ public class RecordController {
     }
 
     /**
-     *
+     * partial documentation
      * @param recordDto
      * @return
      */
     @PostMapping(value = "/records", produces = "application/json", consumes = "application/json")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.ACCEPTED) //ResponseStatus should be 201. CREATED
     public ResponseEntity<UUID> insertRecord(@RequestBody RecordDTO recordDto) {
         RecordDAO checkUserId = recordsDaoService.findByUserId(recordDto.getUserId());
-        if(checkUserId != null){
+        if(checkUserId != null){ //A user can only have one record
             throw new RecordException("Adding Record failed","The Record already exists in the list");
         } else if(!setOfTypes.contains(recordDto.getType())){
             throw new RecordException("Adding Record failed", "Please enter a valid type of file");
@@ -60,7 +61,7 @@ public class RecordController {
      * @return Response status OK
      */
 
-    @PatchMapping("/items/{id}")
+    @PatchMapping("/items/{id}") //Very good that you are using Patch here.
     public ResponseEntity<String> updateDescription(@PathVariable UUID id, @RequestParam(required = true) String description){
     Optional<RecordDAO> recordDAO = recordsDaoService.findById(id);
     if(recordDAO.isPresent()){
