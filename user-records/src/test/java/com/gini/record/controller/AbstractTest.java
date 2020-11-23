@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @SpringBootTest(classes = GiniApplication.class)
 @WebAppConfiguration
 public abstract class AbstractTest {
-    protected MockMvc mvc;
+    protected MockMvc mvc; // I don't really understand why you need to use MockMVC for integration tests. Also, I find this AbstractTest Class confusing.
     @Autowired
     WebApplicationContext webApplicationContext;
 

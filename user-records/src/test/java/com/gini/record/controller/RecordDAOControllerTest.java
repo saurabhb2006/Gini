@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Test Class to test controller methods GET,POST,DELETE,PUT
  */
-public class RecordDAOControllerTest extends AbstractTest {
+public class RecordDAOControllerTest extends AbstractTest {  //This is integration test. The method name is wrong.
     @Override
     @Before
     public void setUp() {
@@ -57,7 +57,7 @@ public class RecordDAOControllerTest extends AbstractTest {
 
         int status = mvcResult.getResponse().getStatus();
         assertEquals(202, status);
-        String content = mvcResult.getResponse().getContentAsString();
+        String content = mvcResult.getResponse().getContentAsString(); //You don't check the content saved.
         assertNotNull(content);
     }
 

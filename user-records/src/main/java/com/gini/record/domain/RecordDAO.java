@@ -16,7 +16,7 @@ import java.util.UUID;
  * Item Data Access Object Object
  */
 @Entity
-@Table(name = "RECORDS")
+@Table(name = "RECORDS") // Everything is Uppercase here, I am not a big fan of this convention
 public class RecordDAO {
 
     @Id
@@ -31,7 +31,7 @@ public class RecordDAO {
     private UUID id;
     @Size(min=1)
     @Column(name = "USERID", unique = true)
-    private String userId;
+    private String userId; // UserId as a String is arguable. Should be either Long of UUID.
     @Column(name = "TYPE")
     private String type;
     @Basic(optional = false)
@@ -56,7 +56,7 @@ public class RecordDAO {
         return id;
     }
 
-    @JsonIgnore
+    @JsonIgnore //JSON annotation of DAO ?
     public void setId(UUID id) {
         this.id = id;
     }

@@ -26,8 +26,8 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 
 	@ExceptionHandler(RecordException.class)
 	public ResponseEntity userNameConflict(RecordException ex) {
-		ExceptionResponse response = new ExceptionResponse(new Date(), ex.getMessage(), ex.getDescription());
-		return new ResponseEntity(response, HttpStatus.CONFLICT);
+		ExceptionResponse response = new ExceptionResponse(new Date(), ex.getMessage(), ex.getDescription()); //This is dangerous. You cound be returning the exception to the client
+		return new ResponseEntity(response, HttpStatus.CONFLICT); //Mapping recordException to a conflict is not valid for all cases.
 	}
 
 	@ExceptionHandler(RecordNotFoundException.class)
